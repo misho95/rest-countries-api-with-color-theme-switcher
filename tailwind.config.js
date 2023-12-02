@@ -7,6 +7,11 @@ export default {
       width: {
         customWidth: "88.89%",
       },
+      fontFamily: {
+        NunitoSansRegular: ["NunitoSansRegular", "sans"],
+        NunitoSansSemiBold: ["NunitoSansSemiBold", "sans"],
+        NunitoSansExtraBold: ["NunitoSansExtraBold", "sans"],
+      },
     },
   },
   plugins: [],

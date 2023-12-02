@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "NunitoSansRegular";
+  src: url("/assets/fonts/NunitoSans_7pt_Expanded-Regular.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "NunitoSansSemiBold";
+  src: url("/assets/fonts/NunitoSans_7pt_Expanded-SemiBold.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "NunitoSansExtraBold";
+  src: url("/assets/fonts/NunitoSans_7pt_SemiCondensed-ExtraBold.ttf")
+    format("truetype");
+}

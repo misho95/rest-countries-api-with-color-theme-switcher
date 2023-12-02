@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Index from "./components";
 import Container from "./components/container";
 import Header from "./components/header";
+import SearchFilter from "./components/search.filter";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Container>
+          <SearchFilter />
           <Index />
         </Container>
       </>

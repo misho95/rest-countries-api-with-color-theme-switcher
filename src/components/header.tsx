@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [dark, setDark] = useState("light");
@@ -33,18 +34,23 @@ const Header = () => {
         role="center-header-content"
         className="flex justify-between items-center w-customWidth"
       >
-        <h1 className="text-[24px] select-none">Where in the world?</h1>
+        <Link
+          to={"/"}
+          className="text-[24px] select-none font-NunitoSansExtraBold"
+        >
+          Where in the world?
+        </Link>
         <button
           onClick={() => setDark(dark === "light" ? "dark" : "light")}
-          className="flex items-center justify-center gap-[10px]"
+          className="flex items-center justify-center gap-[10px] font-NunitoSansSemiBold"
         >
-          {!dark && (
+          {dark === "light" && (
             <>
               <MdOutlineDarkMode />
               <span>Dark Mode</span>
             </>
           )}
-          {dark && (
+          {dark === "dark" && (
             <>
               <MdDarkMode />
               <span>Light Mode</span>

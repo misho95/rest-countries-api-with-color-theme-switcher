@@ -19,12 +19,14 @@ const Container = ({ children }: PropsType) => {
   }, [windowSize]);
 
   return (
-    <div
+    <main
       className={`w-full bg-neutral-100 dark:bg-[#202C36] flex justify-center`}
       style={{ minHeight: height }}
     >
-      <div className="w-customWidth flex flex-col">{children}</div>
-    </div>
+      <div role="center-page" className="w-customWidth flex flex-col">
+        {children}
+      </div>
+    </main>
   );
 };
 

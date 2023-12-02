@@ -1,5 +1,9 @@
+import data from "../data.json";
+
 const Index = () => {
-  return <div>hello</div>;
+  console.log(data);
+
+  return <div></div>;
 };
 
 export default Index;
