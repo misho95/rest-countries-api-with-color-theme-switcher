@@ -5,18 +5,19 @@ import { flags } from "../zustand";
 
 const SearchFilter = () => {
   const optionList = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+  const defaultSelect = "Filter by Region";
 
-  const [selected, setSelected] = useState("Filter by Region");
+  const [selected, setSelected] = useState(defaultSelect);
   const [input, setInput] = useState("");
 
   const flagsDefault = flags((state) => state.flagsDefault);
-  const flagsData = flags((state) => state.flagsRender);
+  // const flagsData = flags((state) => state.flagsRender);
   const flagsFilter = flags((state) => state.filterFlags);
   const flagsReset = flags((state) => state.resetFlags);
 
   const filterBySearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSelected("");
+
     if (input === "") {
       flagsReset();
       return;
@@ -32,7 +33,8 @@ const SearchFilter = () => {
   };
 
   useEffect(() => {
-    if (selected === "") {
+    if (selected === defaultSelect) {
+      console.log("tesing....");
       flagsReset();
       return;
     }
@@ -70,9 +72,9 @@ const SearchFilter = () => {
       <CustomSelect
         width={200}
         height={56}
-        defaultVal={selected}
-        list={optionList}
+        value={selected}
         onChange={setSelected}
+        list={optionList}
       />
     </section>
   );

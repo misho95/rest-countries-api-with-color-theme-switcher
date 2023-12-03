@@ -5,40 +5,30 @@ import { useClickAway } from "@uidotdev/usehooks";
 interface PropsType {
   width: number;
   height: number;
-  defaultVal: string;
+  value: string;
   list: string[];
   onChange: (arg: string) => void;
 }
 
-const CustomSelect = ({
-  width,
-  height,
-  defaultVal,
-  list,
-  onChange,
-}: PropsType) => {
+const CustomSelect = ({ width, height, value, list, onChange }: PropsType) => {
   const [open, setOpen] = useState(false);
-  const [defVal, setDefVal] = useState(defaultVal);
+  const [defVal, setDefVal] = useState(value);
   const [active, setActive] = useState(defVal);
   const ref: any = useClickAway(() => {
     setOpen(false);
   });
 
-  useEffect(() => {
-    console.log(defVal);
-    if (active === defVal) {
-      onChange("");
-      return;
-    }
-
-    onChange(active);
-  }, [active]);
+  const handleSelect = (event: string) => {
+    setActive(event);
+    onChange(event);
+    setOpen(false);
+  };
 
   useEffect(() => {
-    if (defaultVal === "") {
+    if (value === "") {
       setActive(defVal);
     }
-  }, [defaultVal]);
+  }, [value]);
 
   return (
     <div
@@ -59,7 +49,7 @@ const CustomSelect = ({
           {active !== defVal && (
             <span
               onClick={() => {
-                setActive(defVal), setOpen(false);
+                setActive(defVal), onChange(defVal), setOpen(false);
               }}
               className="cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 px-[20px] py-[10px]"
             >
@@ -71,9 +61,7 @@ const CustomSelect = ({
               return (
                 <span
                   key={i}
-                  onClick={() => {
-                    setActive(list[i]), setOpen(false);
-                  }}
+                  onClick={() => handleSelect(list[i])}
                   className="cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 px-[20px] py-[10px]"
                 >
                   {v}
