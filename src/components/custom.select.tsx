@@ -18,19 +18,27 @@ const CustomSelect = ({
   onChange,
 }: PropsType) => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(defaultVal);
+  const [defVal, setDefVal] = useState(defaultVal);
+  const [active, setActive] = useState(defVal);
   const ref: any = useClickAway(() => {
     setOpen(false);
   });
 
   useEffect(() => {
-    if (active === defaultVal) {
+    console.log(defVal);
+    if (active === defVal) {
       onChange("");
       return;
     }
 
     onChange(active);
   }, [active]);
+
+  useEffect(() => {
+    if (defaultVal === "") {
+      setActive(defVal);
+    }
+  }, [defaultVal]);
 
   return (
     <div
@@ -48,10 +56,10 @@ const CustomSelect = ({
       </button>
       {open && (
         <dialog className="flex flex-col gap-[18px]  absolute top-[60px] left-0 w-full bg-white dark:bg-[#2B3844] text-black dark:text-white rounded-lg shadow-sm shadow-black/10 overflow-hidden z-50">
-          {active !== defaultVal && (
+          {active !== defVal && (
             <span
               onClick={() => {
-                setActive(defaultVal), setOpen(false);
+                setActive(defVal), setOpen(false);
               }}
               className="cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 px-[20px] py-[10px]"
             >

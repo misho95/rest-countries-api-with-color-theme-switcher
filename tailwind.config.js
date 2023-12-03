@@ -11,6 +11,7 @@ export default {
         NunitoSansRegular: ["NunitoSansRegular", "sans"],
         NunitoSansSemiBold: ["NunitoSansSemiBold", "sans"],
         NunitoSansExtraBold: ["NunitoSansExtraBold", "sans"],
+        NunitoSansLight: ["NunitoSansLight", "sans"],
       },
     },
   },

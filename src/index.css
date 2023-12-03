@@ -19,3 +19,9 @@
   src: url("/assets/fonts/NunitoSans_7pt_SemiCondensed-ExtraBold.ttf")
     format("truetype");
 }
+
+@font-face {
+  font-family: "NunitoSansLight";
+  src: url("/assets/fonts/NunitoSans_7pt_SemiCondensed-Light.ttf")
+    format("truetype");
+}

@@ -1,17 +1,61 @@
 import { MdSearch } from "react-icons/md";
 import CustomSelect from "./custom.select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { flags } from "../zustand";
 
 const SearchFilter = () => {
-  const optionList = ["Africa", "America", "Asia", "Europa", "Oceania"];
+  const optionList = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("Filter by Region");
+  const [input, setInput] = useState("");
+
+  const flagsDefault = flags((state) => state.flagsDefault);
+  const flagsData = flags((state) => state.flagsRender);
+  const flagsFilter = flags((state) => state.filterFlags);
+  const flagsReset = flags((state) => state.resetFlags);
+
+  const filterBySearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSelected("");
+    if (input === "") {
+      flagsReset();
+      return;
+    }
+
+    const filterd = flagsDefault.filter((d: any) => {
+      if (d.name.toLowerCase().includes(input.toLowerCase())) {
+        return d;
+      }
+    });
+
+    flagsFilter(filterd);
+  };
+
+  useEffect(() => {
+    if (selected === "") {
+      flagsReset();
+      return;
+    }
+
+    const filterd = flagsDefault.filter((d: any) => {
+      if (d.region.toLowerCase() === selected.toLowerCase()) {
+        return d;
+      }
+    });
+
+    flagsFilter(filterd);
+  }, [selected]);
 
   return (
     <section className="my-[45px] w-full flex flex-col sm:flex-row gap-[40px] justify-between">
-      <form className="w-full sm:w-[400px] lg:w-[480px] h-[56px]  bg-white dark:bg-[#2B3844] text-black dark:text-white shadow-sm shadow-black/10 relative pl-[55px]">
+      <form
+        onSubmit={filterBySearch}
+        className="w-full sm:w-[400px] lg:w-[480px] h-[56px]  bg-white dark:bg-[#2B3844] text-black dark:text-white shadow-sm shadow-black/10 relative pl-[55px]"
+      >
         <input
-          type="search"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          type="text"
           placeholder="Search for a country…"
           className="w-full h-full p-[10px] focus:outline-none bg-transparent"
         />
@@ -26,7 +70,7 @@ const SearchFilter = () => {
       <CustomSelect
         width={200}
         height={56}
-        defaultVal={"Filter by Region"}
+        defaultVal={selected}
         list={optionList}
         onChange={setSelected}
       />
