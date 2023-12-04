@@ -11,7 +11,7 @@ const SearchFilter = () => {
   const [input, setInput] = useState("");
 
   const flagsDefault = flags((state) => state.flagsDefault);
-  // const flagsData = flags((state) => state.flagsRender);
+  const flagsRender = flags((state) => state.flagsRender);
   const flagsFilter = flags((state) => state.filterFlags);
   const flagsReset = flags((state) => state.resetFlags);
 
@@ -19,11 +19,11 @@ const SearchFilter = () => {
     e.preventDefault();
 
     if (input === "") {
-      flagsReset();
+      submitFilterByOption();
       return;
     }
 
-    const filterd = flagsDefault.filter((d: any) => {
+    const filterd = flagsRender.filter((d: any) => {
       if (d.name.toLowerCase().includes(input.toLowerCase())) {
         return d;
       }
@@ -32,9 +32,11 @@ const SearchFilter = () => {
     flagsFilter(filterd);
   };
 
-  useEffect(() => {
+  const submitFilterByOption = () => {
+    if (input !== "") {
+      setInput("");
+    }
     if (selected === defaultSelect) {
-      console.log("tesing....");
       flagsReset();
       return;
     }
@@ -46,6 +48,10 @@ const SearchFilter = () => {
     });
 
     flagsFilter(filterd);
+  };
+
+  useEffect(() => {
+    submitFilterByOption();
   }, [selected]);
 
   return (

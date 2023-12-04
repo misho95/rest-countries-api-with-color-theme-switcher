@@ -25,8 +25,9 @@ const CustomSelect = ({ width, height, value, list, onChange }: PropsType) => {
   };
 
   useEffect(() => {
-    if (value === "") {
+    if (value === defVal) {
       setActive(defVal);
+      onChange(defVal);
     }
   }, [value]);
 
