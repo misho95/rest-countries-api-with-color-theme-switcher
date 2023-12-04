@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import { useClickAway } from "@uidotdev/usehooks";
 
@@ -12,8 +12,8 @@ interface PropsType {
 
 const CustomSelect = ({ width, height, value, list, onChange }: PropsType) => {
   const [open, setOpen] = useState(false);
-  const [defVal, setDefVal] = useState(value);
-  const [active, setActive] = useState(defVal);
+  const defVal = useRef<string>(value);
+  const [active, setActive] = useState(defVal.current);
   const ref: any = useClickAway(() => {
     setOpen(false);
   });
@@ -25,9 +25,9 @@ const CustomSelect = ({ width, height, value, list, onChange }: PropsType) => {
   };
 
   useEffect(() => {
-    if (value === defVal) {
-      setActive(defVal);
-      onChange(defVal);
+    if (value === defVal.current) {
+      setActive(defVal.current);
+      onChange(defVal.current);
     }
   }, [value]);
 
@@ -47,10 +47,12 @@ const CustomSelect = ({ width, height, value, list, onChange }: PropsType) => {
       </button>
       {open && (
         <dialog className="flex flex-col gap-[18px]  absolute top-[60px] left-0 w-full bg-white dark:bg-[#2B3844] text-black dark:text-white rounded-lg shadow-sm shadow-black/10 overflow-hidden z-50">
-          {active !== defVal && (
+          {active !== defVal.current && (
             <span
               onClick={() => {
-                setActive(defVal), onChange(defVal), setOpen(false);
+                setActive(defVal.current),
+                  onChange(defVal.current),
+                  setOpen(false);
               }}
               className="cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 px-[20px] py-[10px]"
             >
